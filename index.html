@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Vectras VM Shop</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#101010;
+color:white;
+height:100vh;
+overflow:hidden;
+}
+
+.header{
+padding:15px;
+}
+
+.search{
+width:100%;
+padding:14px;
+background:#1d1d1d;
+border:none;
+border-radius:25px;
+color:white;
+font-size:16px;
+outline:none;
+}
+
+.vmList{
+height:calc(100vh - 75px);
+overflow-y:auto;
+padding:12px;
+}
+
+.vm{
+display:flex;
+align-items:center;
+background:#1d1d1d;
+padding:14px;
+border-radius:16px;
+margin-bottom:12px;
+cursor:pointer;
+transition:.2s;
+}
+
+.vm:hover{
+background:#292929;
+}
+
+.icon{
+width:50px;
+height:50px;
+margin-right:15px;
+flex-shrink:0;
+}
+
+.icon img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.info{
+flex:1;
+}
+
+.name{
+font-size:20px;
+font-weight:bold;
+}
+
+.details{
+margin-top:5px;
+font-size:14px;
+color:#aaa;
+}
+
+.arrow{
+font-size:24px;
+color:#666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<input
+id="search"
+class="search"
+placeholder="Search..."
+oninput="filterVMs()">
+
+</div>
+
+<div id="vmList" class="vmList"></div>
+
+<script>
+
+let allVMs=[];
+
+async function loadVMs(){
+
+const files=await fetch("vms/index.json").then(r=>r.json());
+
+const promises=files.map(file=>
+fetch("vms/"+file).then(r=>r.json())
+);
+
+allVMs=await Promise.all(promises);
+
+allVMs.sort((a,b)=>
+a.name.localeCompare(b.name)
+);
+
+render(allVMs);
+
+}
+
+function render(vms){
+
+const list=document.getElementById("vmList");
+
+list.innerHTML="";
+
+vms.forEach(vm=>{
+
+list.innerHTML+=`
+
+<div class="vm"
+onclick="window.open('${vm.download}','_blank')">
+
+<div class="icon">
+
+<img src="${vm.icon}">
+
+</div>
+
+<div class="info">
+
+<div class="name">
+${vm.name}
+</div>
+
+<div class="details">
+${vm.details}
+</div>
+
+</div>
+
+<div class="arrow">
+➜
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function filterVMs(){
+
+const search=document
+.getElementById("search")
+.value
+.toLowerCase();
+
+const filtered=allVMs.filter(vm=>
+
+vm.name.toLowerCase().includes(search) ||
+
+vm.details.toLowerCase().includes(search)
+
+);
+
+render(filtered);
+
+}
+
+loadVMs();
+
+</script>
+
+</body>
+</html>
