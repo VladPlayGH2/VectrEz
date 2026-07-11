@@ -3,20 +3,5 @@
     "icon":"icons/xp.svg",
     "details":"Faster than x86 • x86_64 • 0.98 GB",
     "download":"https://archive.org/download/blackberry-os/Windows%20XP%20x64.cvbi",
-    "info":"
-Windows XP x64
-
-VM Author:
-Nguyen Bao An Bui
-
-Description:
-Windows XP Professional x64 Edition (codenamed x64 Client) is a sub-edition of Windows XP designed for workstation computers running on top of the then-newly introduced AMD64 processor architecture, a superset of Intel's x86/IA-32 processor architecture developed by AMD that implements 64-bit wide memory address registers to overcome limitations imposed by 32-bit addresses, which had a maximum size of 4 GB.
-Source: BetaWiki
-
-QEMU Command:
--cpu core2duo -smp sockets=1,cores=4,threads=1 -m 512M -vga std -device rtl8139,netdev=n0 -netdev user,id=n0 -accel tcg,thread=multi -device ac97
-
-Version:
-21
-"
+    "info":"Windows XP x64\n\nVM Author:\nNguyen Bao An Bui\n\nDescription:\nWindows XP Professional x64 Edition (codenamed x64 Client) is a sub-edition of Windows XP designed for workstation computers running on top of the then-newly introduced AMD64 processor architecture, a superset of Intel's x86/IA-32 processor architecture developed by AMD that implements 64-bit wide memory address registers to overcome limitations imposed by 32-bit addresses, which had a maximum size of 4 GB.\nSource: BetaWiki\n\nQEMU Command:\n-cpu core2duo -smp sockets=1,cores=4,threads=1 -m 512M -vga std -device rtl8139,netdev=n0 -netdev user,id=n0 -accel tcg,thread=multi -device ac97\n\nVersion:\n21"
 }
