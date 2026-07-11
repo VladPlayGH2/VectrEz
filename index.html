@@ -119,7 +119,7 @@ async function loadVMs(){
 const files=await fetch("vms/index.json").then(r=>r.json());
 
 const promises=files.map(file=>
-fetch("vms/"+file).then(r=>r.json())
+fetch("vms/"+file+".json").then(r=>r.json())
 );
 
 allVMs=await Promise.all(promises);
